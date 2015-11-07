@@ -39,15 +39,17 @@ def event():
     if request.headers['Content-Type'] == 'application/json':
         jsonStr = json.loads(request.data)
         id = jsonStr['id']
-        missle = jsonStr['missile']
+        action = jsonStr['action']
 
-        manager.push(Missile(missle['pos']['x'], \
-                            missle['pos']['y'],\
-                            missle['vel']['x'],\
-                            missle['vel']['y']))
-        return jsonify({
-            'ok': True
-        })
+        if action == "launch_missle":
+            missle = jsonStr['param']
+            manager.push(Missile(missle['pos']['x'], \
+                                missle['pos']['y'],\
+                                missle['vel']['x'],\
+                                missle['vel']['y']))
+            return jsonify({
+               'ok': True
+            })
     else:
         print "fxxk"
 
