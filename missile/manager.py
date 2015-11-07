@@ -49,7 +49,8 @@ class Manager:
 
     def playerAdd(self):
         self.playerList.append(Player())
-        return len(self.playerList), self.playerList[-1].x, self.playerList[-1].y
+        cid = len(self.playerList) - 1
+        return cid, self.playerList[cid].x, self.playerList[cid].y
 
     def push(self, missile):
         self.missileList.append(missile)
