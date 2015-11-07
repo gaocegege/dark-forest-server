@@ -24,12 +24,6 @@ class Manager:
         self.playerList = []
         self.time = time
 
-    def time(self):
-        return self.time
-
-    def set_time(self, cur_time):
-        self.time = cur_time
-
     def update(self, time_span):
         for elem in self.missileList:
             elem.x += elem.vx * time_span * scale_factor

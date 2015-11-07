@@ -11,8 +11,8 @@ manager = Manager(time.time())
 
 def update():
     cur_time = time.time()
-    manager.update(cur_time - manager.time())
-    manager.set_time(cur_time)
+    manager.update(cur_time - manager.time)
+    manager.time = cur_time
 
 @app.route('/init', methods=['GET'])
 def init():
