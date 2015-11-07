@@ -2,11 +2,14 @@ __author__ = 'gaoce'
 
 from flask import jsonify
 from missile import Missile
-from missile import Player
+from player import Player
+import math
 import json
 
+radius = 4
+
 def dist(player, missile):
-    return Math.sqrt(Math.sqr(player.x - missile.x), Math.sqr(player.y - missile.y))
+    return math.sqrt(math.sqr(player.x - missile.x), math.sqr(player.y - missile.y))
 
 class Manager:
     def __init__(self, time):
@@ -42,7 +45,7 @@ class Manager:
 
         return json.dumps(res)
 
-    def player_add(self):
+    def playerAdd(self):
         self.playerList.append(Player())
         return len(self.playerList), self.playerList[-1].x, self.playerList[-1].y
 
