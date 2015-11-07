@@ -31,7 +31,7 @@ class Manager:
         for missile in self.missileList:
             for i in xrange(0, len(self.playerList)):
                 if dist(self.playerList[i], missile) < radius and missile.user_id != i:
-                    player.alive = False
+                    self.playerList[i].alive = False
 
     def infoToJson(self, clientId):
         ret = []
