@@ -9,7 +9,7 @@ import json
 radius = 4
 
 def dist(player, missile):
-    return math.sqrt(math.sqr(player.x - missile.x), math.sqr(player.y - missile.y))
+    return math.sqrt((player.x - missile.x) ** 2 + (player.y - missile.y) ** 2)
 
 class Manager:
     def __init__(self, time):
