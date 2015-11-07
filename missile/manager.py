@@ -40,7 +40,7 @@ class Manager:
     def infoToJson(self, clientId):
         ret = []
         for i in range(self.playerList[clientId].current_version, len(self.missileList)):
-            ret.append(self.missileList[i].toJson())
+            ret.append(self.missileList[i].toJson(clientId))
             print ret
         res = {
                 'alive': self.playerList[clientId].alive,

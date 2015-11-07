@@ -10,8 +10,9 @@ class Missile:
         self.vx = vx
         self.vy = vy
 
-    def toJson(self):
+    def toJson(self, cid):
         return json.dumps({
+            'mine': int(cid == user_id),
             'pos_x': self.x,
             'pos_y': self.y,
             'vel_x': self.vx,
