@@ -1,41 +1,63 @@
 __author__ = 'gaoce'
 
 from flask import Flask, jsonify, request
-from random import randint
+import json
+import time
 from missile import Manager, Missile
 
 app = Flask(__name__)
 
-lowBound = 0
-highBound = 1000
+manager = Manager(time.time())
 
-manager = Manager()
+def update():
+    cur_time = time.time()
+    manager.update(cur_time - manager.time())
+    manager.set_time(cur_time)
 
 @app.route('/init', methods=['GET'])
 def init():
+    update()
+    cid, x, y = manager.playeradd()
     newItem = {
         'pos': {
-            'x': randint(lowBound, highBound),
-            'y': randint(lowBound, highBound)
+            'x': x,
+            'y': y
         },
-        'id': str(randint(lowBound, highBound))
+        'id': cid
     }
     return jsonify(newItem)
 
 @app.route('/poll', methods=['POST'])
 def poll():
-    cid = request.json['id']
-    return manager.getMissileList(cid)
+    update()
+    if "application/json" in request.headers["Content-Type"]:
+        cid = request.json['id']
+        print 'Manager: ' + manager.missileList.__str__()
+        return manager.getMissileList(cid)
+    else:
+        jsonify({
+            'ok': False
+        })
 
 @app.route('/event', methods=['POST'])
 def event():
-    id = request.json['id']
-    missle = request.json['missile']
+    update()
+    if request.headers['Content-Type'] == 'application/json':
+        jsonStr = json.loads(request.data)
+        id = jsonStr['id']
+        action = jsonStr['action']
 
-    manager.push(Missile(missle['pos']['x'], \
-                         missle['pos']['y'],\
-                         missle['vel']['x'],\
-                         missle['vel']['y']))
+        if action == "launch_missle":
+            missle = jsonStr['param']
+            manager.push(Missile(missle['pos']['x'], \
+                                missle['pos']['y'],\
+                                missle['vel']['x'],\
+                                missle['vel']['y']))
+            return jsonify({
+               'ok': True
+            })
+    else:
+        print "fxxk"
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
