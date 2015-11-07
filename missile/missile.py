@@ -3,7 +3,8 @@ __author__ = 'gaoce'
 import json
 
 class Missile:
-    def __init__(self, x, y, vx, vy):
+    def __init__(self, user_id, x, y, vx, vy):
+        self.user_id = user_id;
         self.x = x
         self.y = y
         self.vx = vx

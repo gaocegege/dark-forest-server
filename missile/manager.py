@@ -29,8 +29,8 @@ class Manager:
             elem.y += elem.vy
         
         for missile in self.missileList:
-            for player in self.playerList:
-                if dist(player, missile) < radius:
+            for i in xrange(0, len(self.playerList)):
+                if dist(self.playerList[i], missile) < radius and missile.user_id != i:
                     player.alive = False
 
     def infoToJson(self, clientId):

@@ -49,7 +49,8 @@ def event():
 
         if action == "launch_missile":
             missle = jsonStr['param']
-            manager.push(Missile(missle['pos']['x'], \
+            manager.push(Missile(id, \
+                                missle['pos']['x'], \
                                 missle['pos']['y'],\
                                 missle['vel']['x'],\
                                 missle['vel']['y']))
