@@ -2,15 +2,22 @@ __author__ = 'gaoce'
 
 from flask import Flask, jsonify, request
 import json
+import time
 from missile import Manager, Missile
 
 app = Flask(__name__)
 
-manager = Manager()
+manager = Manager(time.time())
+
+def update():
+    cur_time = time.time()
+    manager.update(cur_time - manager.time())
+    manager.set_time(cur_time)
 
 @app.route('/init', methods=['GET'])
 def init():
-    cid, x, y = manager.playeradd();
+    update()
+    cid, x, y = manager.playeradd()
     newItem = {
         'pos': {
             'x': x,
@@ -22,6 +29,7 @@ def init():
 
 @app.route('/poll', methods=['POST'])
 def poll():
+    update()
     if "application/json" in request.headers["Content-Type"]:
         cid = request.json['id']
         print 'Manager: ' + manager.missileList.__str__()
@@ -33,6 +41,7 @@ def poll():
 
 @app.route('/event', methods=['POST'])
 def event():
+    update()
     if request.headers['Content-Type'] == 'application/json':
         jsonStr = json.loads(request.data)
         id = jsonStr['id']

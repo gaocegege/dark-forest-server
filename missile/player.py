@@ -10,5 +10,6 @@ class Player:
         self.x = randint(lowBound, highBound)
         self.y = randin(lowBound, highBound)
         self.alive = True
+        self.current_version = 0
 
         
