@@ -3,6 +3,8 @@ __author__ = 'gaoce'
 from flask import jsonify
 from missile import Missile
 from player import Player
+from player import lowBound 
+from player import highBound
 import math
 import json
 
@@ -12,6 +14,9 @@ scale_factor = 10
 
 def dist(player, missile):
     return math.sqrt((player.x - missile.x) ** 2 + (player.y - missile.y) ** 2)
+
+def valid(missile):
+    return missile.x >= lowBound and missile.x <= highBound and missile.y <= highBound and missile.y >= lowBound
 
 class Manager:
     def __init__(self, time):
@@ -30,10 +35,13 @@ class Manager:
             elem.x += elem.vx * time_span * scale_factor
             elem.y += elem.vy * time_span * scale_factor
         
-        for missile in self.missileList:
-            for i in xrange(0, len(self.playerList)):
-                if dist(self.playerList[i], missile) < radius and missile.user_id != i:
-                    self.playerList[i].alive = False
+        self.missileList = [m for m in self.missileList if valid(m)]
+
+        for i in xrange(0, len(self.playerList)):
+            if self.playerList[i].alive:
+                for missile in self.missileList:
+                    if dist(self.playerList[i], missile) < radius and missile.user_id != i:
+                        self.playerList[i].alive = False
 
     def infoToJson(self, clientId):
         ret = []
@@ -61,4 +69,4 @@ class Manager:
             self.playerList[clientId].current_version = len(self.missileList)
             return ret
         else:
-            return ""
+            return '{"ok":false}'
