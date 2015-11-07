@@ -1,6 +1,6 @@
 __author__ = 'gaoce'
 
-from flask import jsonify
+import json
 
 class Missile:
     def __init__(self, x, y, vx, vy):
@@ -10,7 +10,7 @@ class Missile:
         self.vy = vy
 
     def toJson(self):
-        return jsonify({
+        return json.dumps({
             'pos': {
                 'x': self.x,
                 'y': self.y
