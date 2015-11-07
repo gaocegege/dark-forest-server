@@ -21,12 +21,12 @@ class Manager:
         return self.time
 
     def set_time(self, cur_time):
-        self.time = cur_time;
+        self.time = cur_time
 
     def update(self, time_span):
         for elem in self.missileList:
-            elem.x += elem.vx;
-            elem.y += elem.vy;
+            elem.x += elem.vx
+            elem.y += elem.vy
         
         for missile in self.missileList:
             for player in self.playerList:
@@ -35,7 +35,7 @@ class Manager:
 
     def infoToJson(self, clientId):
         ret = []
-        for i in range(self.playList[clientId].current_version, len(self.missileList)):
+        for i in range(self.playerList[clientId].current_version, len(self.missileList)):
             ret.append(self.missileList[i].toJson())
             print ret
         res = {
