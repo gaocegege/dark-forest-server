@@ -5,15 +5,14 @@ from missile import Missile
 from player import Player
 from player import lowBound 
 from player import highBound
-import math
 import json
 
 radius = 4
 
 scale_factor = 10
 
-def dist(player, missile):
-    return math.sqrt((player.x - missile.x) ** 2 + (player.y - missile.y) ** 2)
+def dist_sqr(player, missile):
+    return (player.x - missile.x) ** 2 + (player.y - missile.y) ** 2
 
 def valid(missile):
     return missile.x >= lowBound and missile.x <= highBound and missile.y <= highBound and missile.y >= lowBound
@@ -34,8 +33,9 @@ class Manager:
         for i in xrange(0, len(self.playerList)):
             if self.playerList[i].alive:
                 for missile in self.missileList:
-                    if dist(self.playerList[i], missile) < radius and missile.user_id != i:
+                    if dist_sqr(self.playerList[i], missile) < radius ** 2 and missile.user_id != i:
                         self.playerList[i].alive = False
+                        print "{cid} is killed by {killer}".format(cid = i, killer = missile.user_id)
 
     def infoToJson(self, clientId):
         ret = []

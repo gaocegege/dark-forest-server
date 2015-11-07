@@ -17,7 +17,6 @@ def update():
 @app.route('/init', methods=['GET'])
 def init():
     update()
-    print "hello"
     cid, x, y = manager.playerAdd()
     newItem = {
         'pos': {
@@ -26,7 +25,6 @@ def init():
         },
         'id': cid
     }
-    print "hello"
     return jsonify(newItem)
 
 @app.route('/poll', methods=['POST'])
