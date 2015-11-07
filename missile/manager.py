@@ -8,6 +8,8 @@ import json
 
 radius = 4
 
+scale_factor = 1
+
 def dist(player, missile):
     return math.sqrt((player.x - missile.x) ** 2 + (player.y - missile.y) ** 2)
 
@@ -25,8 +27,8 @@ class Manager:
 
     def update(self, time_span):
         for elem in self.missileList:
-            elem.x += elem.vx
-            elem.y += elem.vy
+            elem.x += elem.vx * time_span * scale_factor
+            elem.y += elem.vy * time_span * scale_factor
         
         for missile in self.missileList:
             for i in xrange(0, len(self.playerList)):
