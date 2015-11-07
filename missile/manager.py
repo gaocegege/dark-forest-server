@@ -2,6 +2,7 @@ __author__ = 'gaoce'
 
 from flask import jsonify
 from missile import Missile
+import json
 
 class Manager:
     def __init__(self):
@@ -12,7 +13,8 @@ class Manager:
         ret = []
         for i in range(pointer, len(self.missileList)):
             ret.append(self.missileList[i].toJson())
-        return jsonify(ret)
+            print ret
+        return json.dumps(ret)
 
     def push(self, missile):
         self.missileList.append(missile)

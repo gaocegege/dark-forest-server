@@ -1,5 +1,5 @@
-import httplib, urllib
-params = urllib.urlencode({
+import httplib, json
+params = {
     'id': '12345',
     'missile': {
         'pos': {
@@ -10,9 +10,11 @@ params = urllib.urlencode({
             'x': 1,
             'y': 2
         }
-}})
+}}
 
-headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/plain"}
+params = json.dumps(params)
+
+headers = {"Content-type": "application/json", "Accept": "text/plain"}
 
 conn = httplib.HTTPConnection("localhost", 5000)
 conn.request("POST", "/event", params, headers)
