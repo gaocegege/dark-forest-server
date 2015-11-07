@@ -45,7 +45,7 @@ class Manager:
 
         return json.dumps(res)
 
-    def player_add(self):
+    def playerAdd(self):
         self.playerList.append(Player())
         return len(self.playerList), self.playerList[-1].x, self.playerList[-1].y
 

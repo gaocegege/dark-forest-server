@@ -1,7 +1,7 @@
 import httplib, json
 params = {
     'id': '12345',
-    'action' : 'launch_missile',
+    'action': 'launch_missile',
     'param': {
         'pos': {
             'x': 1,

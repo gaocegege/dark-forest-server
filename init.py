@@ -11,13 +11,13 @@ manager = Manager(time.time())
 
 def update():
     cur_time = time.time()
-    manager.update(cur_time - manager.time())
+    manager.update(cur_time - manager.time)
     manager.set_time(cur_time)
 
 @app.route('/init', methods=['GET'])
 def init():
     update()
-    cid, x, y = manager.playeradd()
+    cid, x, y = manager.playerAdd()
     newItem = {
         'pos': {
             'x': x,
@@ -35,7 +35,7 @@ def poll():
         print 'Manager: ' + manager.missileList.__str__()
         return manager.getMissileList(cid)
     else:
-        jsonify({
+        return jsonify({
             'ok': False
         })
 
@@ -47,17 +47,23 @@ def event():
         id = jsonStr['id']
         action = jsonStr['action']
 
-        if action == "launch_missle":
+        if action == "launch_missile":
             missle = jsonStr['param']
             manager.push(Missile(missle['pos']['x'], \
                                 missle['pos']['y'],\
                                 missle['vel']['x'],\
                                 missle['vel']['y']))
             return jsonify({
-               'ok': True
+                'ok': True
+            })
+        else:
+            return jsonify({
+                'ok': False
             })
     else:
-        print "fxxk"
+        return jsonify({
+            'ok': False
+        })
 
 if __name__ == "__main__":
     app.run(debug=True)
