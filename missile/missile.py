@@ -12,12 +12,8 @@ class Missile:
 
     def toJson(self):
         return json.dumps({
-            'pos': {
-                'x': self.x,
-                'y': self.y
-            },
-            'vel': {
-                'x': self.vx,
-                'y': self.vy
-            }
+            'pos_x': self.x,
+            'pos_y': self.y,
+            'vel_x': self.vx,
+            'vel_y': self.vy
         })
