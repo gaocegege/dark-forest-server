@@ -10,7 +10,7 @@ import json
 
 radius = 4
 
-scale_factor = 10
+scale_factor = 1
 
 def dist(player, missile):
     return math.sqrt((player.x - missile.x) ** 2 + (player.y - missile.y) ** 2)
