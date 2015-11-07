@@ -2,8 +2,8 @@ __author__ = 'codeworm96'
 
 from random import randint
 
-lowBound = -500
-highBound = 500
+lowBound = -50
+highBound = 50
 
 class Player:
     def __init__(self):
