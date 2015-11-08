@@ -28,7 +28,7 @@ class Manager:
             elem.x += elem.vx * time_span * scale_factor
             elem.y += elem.vy * time_span * scale_factor
         
-        self.missileList = [m for m in self.missileList if valid(m)]
+        #self.missileList = [m for m in self.missileList if valid(m)]
 
         for i in xrange(0, len(self.playerList)):
             if self.playerList[i].alive:
@@ -41,9 +41,9 @@ class Manager:
         ret = []
         for i in range(self.playerList[clientId].current_version, len(self.missileList)):
             ret.append(self.missileList[i].toJson(clientId))
-            print ret
+            print clientId, self.missileList[-1].user_id
         res = {
-                'alive': self.playerList[clientId].alive,
+                'alive': True,
                 'missile_list': ret
                 }
 

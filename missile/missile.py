@@ -12,7 +12,7 @@ class Missile:
 
     def toJson(self, cid):
         return json.dumps({
-            'mine': int(cid == user_id),
+            'mine': int(cid == self.user_id),
             'pos_x': self.x,
             'pos_y': self.y,
             'vel_x': self.vx,

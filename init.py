@@ -18,6 +18,7 @@ def update():
 def init():
     update()
     cid, x, y = manager.playerAdd()
+    print cid, x, y
     newItem = {
         'pos': {
             'x': x,
@@ -32,6 +33,7 @@ def poll():
     update()
     if "application/json" in request.headers["Content-Type"]:
         cid = request.json['id']
+        print cid
         print 'Manager: ' + manager.missileList.__str__()
         return manager.getMissileList(cid)
     else:
@@ -48,12 +50,12 @@ def event():
         action = jsonStr['action']
 
         if action == "launch_missile":
-            missle = jsonStr['param']
+            missile = jsonStr['param']
             manager.push(Missile(id, \
-                                missle['pos']['x'], \
-                                missle['pos']['y'],\
-                                missle['vel']['x'],\
-                                missle['vel']['y']))
+                                missile['pos']['x'], \
+                                missile['pos']['y'],\
+                                missile['vel']['x'],\
+                                missile['vel']['y']))
             return jsonify({
                 'ok': True
             })
